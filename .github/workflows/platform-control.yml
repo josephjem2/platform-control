@@ -1,0 +1,39 @@
+name: Platform Control Plane
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  control-plane:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.6
+          terraform_wrapper: false
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: terraform/envs/control-plane
+
+      - name: Terraform Plan
+        run: terraform plan
+        working-directory: terraform/envs/control-plane
+
+      - name: Terraform Apply (main only)
+        if: github.ref == 'refs/heads/main'
+        run: terraform apply -auto-approve
+        working-directory: terraform/envs/control-plane
+
+      - name: Install Ansible
+        run: sudo apt-get update && sudo apt-get install -y ansible
+
+      - name: Run Ansible baseline role
+        run: ansible-playbook ansible/site.yml

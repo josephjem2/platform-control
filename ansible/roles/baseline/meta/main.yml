@@ -1,0 +1,4 @@
+galaxy_info:
+  author: bootcamp
+  description: Baseline platform policy role
+  min_ansible_version: "2.10"

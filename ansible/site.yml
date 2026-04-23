@@ -1,0 +1,7 @@
+- name: Apply platform baseline
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  roles:
+    - baseline
