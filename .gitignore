@@ -1,0 +1,24 @@
+# -----------------------------
+# Terraform (CRITICAL)
+# -----------------------------
+
+# Terraform working directory (provider binaries, caches)
+**/.terraform/*
+
+# Terraform state files (contain sensitive data)
+*.tfstate
+*.tfstate.*
+
+# Variable files (often contain secrets)
+*.tfvars
+*.tfvars.json
+
+# Terraform plan output
+*.tfplan
+
+# Terraform CLI config
+.terraformrc
+terraform.rc
+
+# Terraform lock file (optional for bootcamp)
+.terraform.lock.hcl
